@@ -47,6 +47,7 @@ const cardGenerator = () => {
     back.classList = "back";
     //Attach the info to the cards
     face.src = item.imgSrc;
+    card.setAttribute("name", item.name);
     //Attach the card to the section
     gameArea.appendChild(card);
     card.appendChild(face);
@@ -54,8 +55,47 @@ const cardGenerator = () => {
 
     card.addEventListener("click", (e) => {
       card.classList.toggle("toggle_card");
+      checkCards(e);
     });
   });
+};
+
+//Check cards
+const checkCards = (e) => {
+  const clickedCard = e.target;
+  clickedCard.classList.add("flipped");
+  const flippedCards = document.querySelectorAll(".flipped");
+
+  //Logic
+  if (flippedCards.length === 2) {
+    if (
+      flippedCards[0].getAttribute("name") ===
+      flippedCards[1].getAttribute("name")
+    ) {
+      console.log("Macth");
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        //make it unclickable
+        card.style.pointerEvents = "none";
+      });
+    } else {
+      //Remove class
+      console.log({ flippedCards });
+      flippedCards.forEach((card) => {
+        card.classList.remove("flipped");
+        //Delaying the second flipp remove
+        setTimeout(() => card.classList.remove("toggle_card"), 500);
+      });
+    }
+  }
+
+  console.log({ clickedCard });
+};
+
+const reStart = () => {
+  let cardData = randomize();
+  let faces = document.querySelectorAll(".face");
+  let card = document.querySelectorAll(".card");
 };
 
 cardGenerator();
