@@ -1,10 +1,39 @@
-//Grab a couple of things
-const gameArea = document.getElementById("game_area");
-const playerLivesCount = document.getElementById("players_live_count");
-const playerLives = 6;
+//Global values
+let userName = "";
+let gameMode = "easy";
 
-//Link text
-playerLivesCount.textContent = playerLives;
+//DOM ele reference
+const gameSec = document.querySelector(".game_sec");
+const gameArea = document.querySelector(".game_area");
+const sesult_sec = document.querySelector(".result");
+const infoSec = document.querySelector(".info");
+
+//Event listers
+document.getElementById("btn_id").addEventListener("click", handleSubmit);
+
+//Submit user name
+function handleSubmit() {
+  //Set the user name
+  const nameValue = document.getElementById("username_id").value;
+  //Validation check
+  const errorEle = document.querySelector(".error_field");
+  if (!!nameValue.length) {
+    userName = nameValue;
+    //Hide and show sections
+    infoSec.classList.add("hide");
+    gameSec.classList.remove("hide");
+    cardGenerator();
+  } else {
+    errorEle.innerText = "Please enter a user name!";
+  }
+
+  //Set the game level
+  const levelEle = document.querySelectorAll('input[name="game_level"]');
+  const selectedLevel = Array.from(levelEle).find((level) => !!level.checked);
+  if (selectedLevel) {
+    gameMode = selectedLevel.value;
+  }
+}
 
 //Generate data
 let getData = () => [
@@ -72,7 +101,6 @@ const checkCards = (e) => {
       flippedCards[0].getAttribute("name") ===
       flippedCards[1].getAttribute("name")
     ) {
-      console.log("Macth");
       flippedCards.forEach((card) => {
         card.classList.remove("flipped");
         //make it unclickable
@@ -80,7 +108,6 @@ const checkCards = (e) => {
       });
     } else {
       //Remove class
-      console.log({ flippedCards });
       flippedCards.forEach((card) => {
         card.classList.remove("flipped");
         //Delaying the second flipp remove
@@ -88,14 +115,11 @@ const checkCards = (e) => {
       });
     }
   }
-
-  console.log({ clickedCard });
 };
 
-const reStart = () => {
-  let cardData = randomize();
-  let faces = document.querySelectorAll(".face");
-  let card = document.querySelectorAll(".card");
+//show final result
+const showResult = () => {
+  sesult_sec.classList.remove("hide");
+  document.getElementById("player_name").innerText = userName;
+  document.getElementById("game_level").innerText = gameMode;
 };
-
-cardGenerator();
