@@ -26,14 +26,14 @@
             type="radio"
             id="intermediate_level"
             name="game_level"
-            value="intermediate"
+            value="Intermediate"
           />
           <label for="intermediate_level">Intermediate</label><br />
           <input
             type="radio"
             id="advance_level"
             name="game_level"
-            value="advance"
+            value="Advance"
           />
           <label for="advance_level">Advance</label><br />
         </div>
@@ -43,11 +43,11 @@
     <section class="game_sec hide">
       <div>
         <div class="meta">
-          <p>Time :</p>
-          <p>Moves :</p>
+          <p>Time : <span id="timer">0</span></p>
+          <p>Moves : <span id="moves">0</span></p>
         </div>
         <div class="game_area"></div>
-        <button>Start</button>
+        <button id="start_game">Start</button>
       </div>
     </section>
     <section class="result hide">
