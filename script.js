@@ -1,31 +1,23 @@
 //Global values
 let userName = "";
 let gameMode = "easy";
+let noOfMatch = 0;
 
 //DOM ele reference
 const gameSec = document.querySelector(".game_sec");
 const gameArea = document.querySelector(".game_area");
 const sesult_sec = document.querySelector(".result");
 const infoSec = document.querySelector(".info");
+const movesEle = document.getElementById("moves");
 
 //Event listers
 document.getElementById("btn_id").addEventListener("click", handleSubmit);
+document.getElementById("start_game").addEventListener("click", startGame);
 
 //Submit user name
 function handleSubmit() {
   //Set the user name
   const nameValue = document.getElementById("username_id").value;
-  //Validation check
-  const errorEle = document.querySelector(".error_field");
-  if (!!nameValue.length) {
-    userName = nameValue;
-    //Hide and show sections
-    infoSec.classList.add("hide");
-    gameSec.classList.remove("hide");
-    cardGenerator();
-  } else {
-    errorEle.innerText = "Please enter a user name!";
-  }
 
   //Set the game level
   const levelEle = document.querySelectorAll('input[name="game_level"]');
@@ -33,31 +25,80 @@ function handleSubmit() {
   if (selectedLevel) {
     gameMode = selectedLevel.value;
   }
+
+  //Validation check
+  const errorEle = document.querySelector(".error_field");
+  if (!!nameValue.length) {
+    userName = nameValue;
+    //Hide and show sections
+    infoSec.classList.add("hide");
+    gameSec.classList.remove("hide");
+    //Generate cards data
+    cardGenerator();
+  } else {
+    errorEle.innerText = "Please enter a user name!";
+  }
 }
 
 //Generate data
-let getData = () => [
-  { imgSrc: "./images/beatles.jpeg", id: 1, name: "beatles" },
-  { imgSrc: "./images/blink182.jpeg", id: 2, name: "blink 182" },
-  { imgSrc: "./images/fkatwigs.jpeg", id: 3, name: "fka twigs" },
-  { imgSrc: "./images/fleetwood.jpeg", id: 4, name: "fleetwood" },
-  { imgSrc: "./images/joy-division.jpeg", id: 5, name: "joy division" },
-  { imgSrc: "./images/ledzep.jpeg", id: 6, name: "lep zeppelin" },
-  { imgSrc: "./images/metallica.jpeg", id: 7, name: "metallica" },
-  { imgSrc: "./images/pinkfloyd.jpeg", id: 8, name: "pink floyd" },
-  { imgSrc: "./images/beatles.jpeg", id: 9, name: "beatles" },
-  { imgSrc: "./images/blink182.jpeg", id: 10, name: "blink 182" },
-  { imgSrc: "./images/fkatwigs.jpeg", id: 11, name: "fka twigs" },
-  { imgSrc: "./images/fleetwood.jpeg", id: 12, name: "fleetwood" },
-  { imgSrc: "./images/joy-division.jpeg", id: 13, name: "joy division" },
-  { imgSrc: "./images/ledzep.jpeg", id: 14, name: "led zeppelin" },
-  { imgSrc: "./images/metallica.jpeg", id: 15, name: "metallica" },
-  { imgSrc: "./images/pinkfloyd.jpeg", id: 16, name: "pink floyd" },
-];
+let getData = () => {
+  let data;
+  const emojiList = [
+    { content: "😍", name: "emojiLoveEye" },
+    { content: "😎", name: "emojiShade" },
+    { content: "🥳", name: "emojiCelebration" },
+    { content: "😭", name: "emojiCry" },
+    { content: "🥶", name: "emojiCold" },
+    { content: "🥺", name: "emojiSad" },
+  ];
+  const numberList = [
+    { content: "10", name: "10" },
+    { content: "22", name: "22" },
+    { content: "40", name: "40" },
+    { content: "101", name: "101" },
+    { content: "70", name: "70" },
+    { content: "99", name: "99" },
+  ];
+
+  //Give 4*4
+  if (gameMode === "Easy") {
+    const firstFourEmoji = emojiList.slice(0, 4);
+    data = [
+      ...firstFourEmoji,
+      ...firstFourEmoji,
+      ...firstFourEmoji,
+      ...firstFourEmoji,
+    ];
+  }
+
+  //Give 6*6
+  if (gameMode === "Intermediate") {
+    data = [
+      ...emojiList,
+      ...emojiList,
+      ...emojiList,
+      ...emojiList,
+      ...emojiList,
+      ...emojiList,
+    ];
+  }
+
+  if (gameMode === "Advance") {
+    data = [
+      ...numberList,
+      ...numberList,
+      ...numberList,
+      ...numberList,
+      ...numberList,
+      ...numberList,
+    ];
+  }
+  return data;
+};
 
 //Randomize
 const randomize = () => {
-  const cardData = getData();
+  let cardData = getData();
   cardData.sort(() => Math.random() - 0.5);
   return cardData;
 };
@@ -66,16 +107,26 @@ const randomize = () => {
 const cardGenerator = () => {
   const cardData = randomize();
 
+  //For changig grid nos
+  if (gameMode === "Intermediate" || gameMode === "Advance") {
+    document.querySelector(".game_area").classList.add("game_area_six");
+  }
+
   cardData.forEach((item) => {
     //Generate HTML
     const card = document.createElement("div");
-    const face = document.createElement("img");
+    const face = document.createElement("div");
     const back = document.createElement("div");
+    const faceInner = document.createElement("p");
+
     card.classList = "card";
     face.classList = "face";
     back.classList = "back";
+
     //Attach the info to the cards
-    face.src = item.imgSrc;
+    face.appendChild(faceInner);
+    faceInner.innerText = item.content;
+
     card.setAttribute("name", item.name);
     //Attach the card to the section
     gameArea.appendChild(card);
@@ -87,6 +138,20 @@ const cardGenerator = () => {
       checkCards(e);
     });
   });
+};
+
+const checkNoOfMatch = () => {
+  noOfMatch++;
+
+  if (gameMode === "Easy" && noOfMatch === 8) {
+    showResult();
+  }
+  if (gameMode === "Intermediate" && noOfMatch === 16) {
+    showResult();
+  }
+  if (gameMode === "Advance" && noOfMatch === 16) {
+    showResult();
+  }
 };
 
 //Check cards
@@ -106,6 +171,7 @@ const checkCards = (e) => {
         //make it unclickable
         card.style.pointerEvents = "none";
       });
+      checkNoOfMatch();
     } else {
       //Remove class
       flippedCards.forEach((card) => {
@@ -114,12 +180,40 @@ const checkCards = (e) => {
         setTimeout(() => card.classList.remove("toggle_card"), 500);
       });
     }
+    //Increment the moves
+    const currentMovesValue = movesEle.innerText;
+    movesEle.innerText = parseInt(currentMovesValue) + 1;
   }
+};
+
+//Game start
+function startGame() {
+  setInterval(timer, 1000);
+}
+
+//Timer func
+const timer = () => {
+  const timerEle = document.getElementById("timer");
+  const currentTimerValue = timerEle.innerText;
+  timerEle.innerText = parseInt(currentTimerValue) + 1;
+
+  //TODO
+  //Implement function for minute
 };
 
 //show final result
 const showResult = () => {
+  gameSec.classList.add("hide");
   sesult_sec.classList.remove("hide");
   document.getElementById("player_name").innerText = userName;
   document.getElementById("game_level").innerText = gameMode;
 };
+
+//TODO
+//1: make minute function
+//2: allow to flip only when start button is clicked
+//3: resume functionality
+//4: styling for all sections
+//5: show no of moves in result section
+//6: show timer in result section
+//back functionalituy to go back to user info sectiuon
