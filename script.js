@@ -1,18 +1,27 @@
 //Global values
 let userName = "";
-let gameMode = "easy";
+let gameMode = "";
 let noOfMatch = 0;
+let currentMovesValue = 0;
+let totalSeconds = 0;
+let clearIntervalID = undefined;
 
 //DOM ele reference
 const gameSec = document.querySelector(".game_sec");
 const gameArea = document.querySelector(".game_area");
-const sesult_sec = document.querySelector(".result");
+const result_sec = document.querySelector(".result");
 const infoSec = document.querySelector(".info");
 const movesEle = document.getElementById("moves");
+const startInfo = document.querySelector(".start_info");
+const minutes = document.getElementById("minutes");
+const seconds = document.getElementById("seconds");
 
-//Event listers
+
+//Event listeners
 document.getElementById("btn_id").addEventListener("click", handleSubmit);
-document.getElementById("start_game").addEventListener("click", startGame);
+//document.getElementById("start_game").addEventListener("click", startGame);
+document.querySelector(".back_btn").addEventListener("click", function(){location.reload()});
+document.querySelector(".reset_btn").addEventListener("click", function(){location.reload()});
 
 //Submit user name
 function handleSubmit() {
@@ -21,22 +30,28 @@ function handleSubmit() {
 
   //Set the game level
   const levelEle = document.querySelectorAll('input[name="game_level"]');
-  const selectedLevel = Array.from(levelEle).find((level) => !!level.checked);
+  const selectedLevel = Array.from(levelEle).find((level) => level.checked);
   if (selectedLevel) {
     gameMode = selectedLevel.value;
   }
-
+  console.log(gameMode);
   //Validation check
   const errorEle = document.querySelector(".error_field");
-  if (!!nameValue.length) {
+  const errorLevelEle = document.querySelector(".error_field_level");
+  errorEle.innerText = "";
+  errorLevelEle.innerText = "";
+
+  if (nameValue.length && gameMode.length) {
     userName = nameValue;
     //Hide and show sections
     infoSec.classList.add("hide");
     gameSec.classList.remove("hide");
     //Generate cards data
     cardGenerator();
-  } else {
+  } else if (!nameValue.length) {
     errorEle.innerText = "Please enter a user name!";
+  } else if (!gameMode.length) {
+    errorLevelEle.innerText = "Please select level!";
   }
 }
 
@@ -160,6 +175,7 @@ const checkCards = (e) => {
   clickedCard.classList.add("flipped");
   const flippedCards = document.querySelectorAll(".flipped");
 
+
   //Logic
   if (flippedCards.length === 2) {
     if (
@@ -181,8 +197,12 @@ const checkCards = (e) => {
       });
     }
     //Increment the moves
-    const currentMovesValue = movesEle.innerText;
-    movesEle.innerText = parseInt(currentMovesValue) + 1;
+    movesEle.innerText = `${++currentMovesValue}`;
+  }
+
+  if(currentMovesValue === 0 ) {
+    startInfo.classList.add("hide");
+    clearIntervalID = timer();
   }
 };
 
@@ -192,21 +212,39 @@ function startGame() {
 }
 
 //Timer func
-const timer = () => {
-  const timerEle = document.getElementById("timer");
-  const currentTimerValue = timerEle.innerText;
-  timerEle.innerText = parseInt(currentTimerValue) + 1;
 
-  //TODO
-  //Implement function for minute
+
+const timer = () => {
+  let clearTimerID = setInterval(setTime, 1000);
+
+  function setTime() {
+    ++totalSeconds;
+    seconds.innerHTML = pad(totalSeconds % 60);
+    minutes.innerHTML = pad(parseInt(totalSeconds / 60));
+  }
+
+  function pad(val) {
+    let valString = val + "";
+    if (valString.length < 2) {
+      return "0" + valString;
+    } else {
+      return valString;
+    }
+  }
+
+  return clearTimerID;
 };
 
 //show final result
 const showResult = () => {
+  clearInterval(clearIntervalID);
   gameSec.classList.add("hide");
-  sesult_sec.classList.remove("hide");
+  result_sec.classList.remove("hide");
   document.getElementById("player_name").innerText = userName;
   document.getElementById("game_level").innerText = gameMode;
+  document.getElementById("minutes_end").innerText = minutes.innerText;
+  document.getElementById("seconds_end").innerText = seconds.innerText;
+  document.getElementById("end_no_moves").innerText = parseInt(currentMovesValue);
 };
 
 //TODO
@@ -216,4 +254,4 @@ const showResult = () => {
 //4: styling for all sections
 //5: show no of moves in result section
 //6: show timer in result section
-//back functionalituy to go back to user info sectiuon
+//7: back functionality to go back to user info section
