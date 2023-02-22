@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Memory game</title>
     <link rel="stylesheet" href="style.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 <body>
 <section class="info">
     <div>
-        <h1>Welcome to Flip and Find!</h1>
+        <h2>Welcome to</h2>
+        <h1>Flip and Find!</h1>
         <input
                 type="text"
                 placeholder="Enter your user name"
@@ -18,8 +23,8 @@
                 id="username_id"
         />
         <span class="error_field"></span>
-        <div>
-            <h2>Game level</h2>
+        <div class="game_levels">
+            <h2>GAME LEVEL</h2>
             <input type="radio"
                    id="easy_level"
                    name="game_level"
@@ -41,18 +46,20 @@
             <label for="advance_level">Advance</label><br/>
         </div>
       <div class="error_field_level"></div>
-        <button id="btn_id">Enter</button>
+        <button id="btn_id">START GAME</button>
     </div>
 </section>
 <section class="game_sec hide">
     <div>
         <div class="meta">
-            <p>Timer: <span id="minutes">0</span>:<span id="seconds">00</span></p>
+            <p>Time: <span id="minutes">0</span>:<span id="seconds">00</span></p>
             <p>Moves : <span id="moves">0</span></p>
         </div>
         <div class="game_area"></div>
-        <div class="start_info"><p>Game will begin when first card clicked!</p></div>
-        <button class="back_btn">Back</button>
+        <div class="start_info"><p>Game will begin when the first card is clicked!</p></div>
+        <div class="backbutton">
+         <button class="back_btn">Back</button>
+        </div>
     </div>
 </section>
 <section class="result hide">
