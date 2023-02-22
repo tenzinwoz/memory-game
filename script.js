@@ -161,10 +161,10 @@ const checkNoOfMatch = () => {
   if (gameMode === "Easy" && noOfMatch === 8) {
     showResult();
   }
-  if (gameMode === "Intermediate" && noOfMatch === 16) {
+  if (gameMode === "Intermediate" && noOfMatch === 18) {
     showResult();
   }
-  if (gameMode === "Advance" && noOfMatch === 16) {
+  if (gameMode === "Advance" && noOfMatch === 18) {
     showResult();
   }
 };
