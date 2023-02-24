@@ -16,12 +16,15 @@ const startInfo = document.querySelector(".start_info");
 const minutes = document.getElementById("minutes");
 const seconds = document.getElementById("seconds");
 
-
 //Event listeners
 document.getElementById("btn_id").addEventListener("click", handleSubmit);
 //document.getElementById("start_game").addEventListener("click", startGame);
-document.querySelector(".back_btn").addEventListener("click", function(){location.reload()});
-document.querySelector(".reset_btn").addEventListener("click", function(){location.reload()});
+document.querySelector(".back_btn").addEventListener("click", function () {
+  location.reload();
+});
+document.querySelector(".reset_btn").addEventListener("click", function () {
+  location.reload();
+});
 
 //Submit user name
 function handleSubmit() {
@@ -161,10 +164,10 @@ const checkNoOfMatch = () => {
   if (gameMode === "Easy" && noOfMatch === 8) {
     showResult();
   }
-  if (gameMode === "Intermediate" && noOfMatch === 16) {
+  if (gameMode === "Intermediate" && noOfMatch === 18) {
     showResult();
   }
-  if (gameMode === "Advance" && noOfMatch === 16) {
+  if (gameMode === "Advance" && noOfMatch === 18) {
     showResult();
   }
 };
@@ -174,7 +177,6 @@ const checkCards = (e) => {
   const clickedCard = e.target;
   clickedCard.classList.add("flipped");
   const flippedCards = document.querySelectorAll(".flipped");
-
 
   //Logic
   if (flippedCards.length === 2) {
@@ -200,7 +202,7 @@ const checkCards = (e) => {
     movesEle.innerText = `${++currentMovesValue}`;
   }
 
-  if(currentMovesValue === 0 ) {
+  if (currentMovesValue === 0) {
     startInfo.classList.add("hide");
     clearIntervalID = timer();
   }
@@ -212,7 +214,6 @@ function startGame() {
 }
 
 //Timer func
-
 
 const timer = () => {
   let clearTimerID = setInterval(setTime, 1000);
@@ -244,8 +245,62 @@ const showResult = () => {
   document.getElementById("game_level").innerText = gameMode;
   document.getElementById("minutes_end").innerText = minutes.innerText;
   document.getElementById("seconds_end").innerText = seconds.innerText;
-  document.getElementById("end_no_moves").innerText = parseInt(currentMovesValue);
+  document.getElementById("end_no_moves").innerText =
+    parseInt(currentMovesValue);
 };
+
+//Theme toggler
+const content = document.getElementsByTagName("body")[0];
+const darkMode = document.getElementById("dark-change");
+darkMode.addEventListener("click", function () {
+  darkMode.classList.toggle("active");
+  content.classList.toggle("night");
+});
+
+//Audio player
+const player = document.getElementById("player");
+let progress = document.getElementById("progress");
+let playbtn = document.getElementById("playbtn");
+
+const playpause = function () {
+  if (player.paused) {
+    player.play();
+  } else {
+    player.pause();
+  }
+};
+
+playbtn.addEventListener("click", playpause);
+
+player.onplay = function () {
+  playbtn.classList.remove("fa-play");
+  playbtn.classList.add("fa-pause");
+};
+
+player.onpause = function () {
+  playbtn.classList.add("fa-play");
+  playbtn.classList.remove("fa-pause");
+};
+
+player.ontimeupdate = function () {
+  let ct = player.currentTime;
+  current.innerHTML = timeFormat(ct);
+  //progress
+  let duration = player.duration;
+  prog = Math.floor((ct * 100) / duration);
+  progress.style.setProperty("--progress", prog + "%");
+};
+
+function timeFormat(ct) {
+  let minutes = Math.floor(ct / 60);
+  let seconds = Math.floor(ct % 60);
+
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+
+  return minutes + ":" + seconds;
+}
 
 //TODO
 //1: make minute function

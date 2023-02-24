@@ -6,17 +6,96 @@
 }
 body {
   height: 100vh;
-  background-color: goldenrod;
+  background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  color: #212a2e;
+}
+body.night {
+  background-color: #000;
+  color: #fff;
 }
 
 .error_field {
   color: red;
 }
 /* End of global & common styling */
+h1 {
+  font-size: 64px;
+  font-style: italic;
+}
+#username_id {
+  margin-top: 15px;
+  font-size: 25px;
+  font-family: "Poppins", sans-serif;
+  border-radius: 30px;
+  width: 400px;
+  height: 50px;
+  text-align: center;
+  border: none;
+}
+
+.game_levels {
+  margin-top: 25px;
+  font-size: 20px;
+}
+
+.game_levels h2 {
+  font-size: 25px;
+}
+button {
+  margin-top: 25px;
+  width: 400px;
+  height: 60px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+button:hover {
+  background-color: #2ee59d;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
+#btn_id {
+  margin-top: 25px;
+  width: 400px;
+  height: 60px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+#btn_id:hover {
+  background-color: #2ee59d;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
 
 /* Info section style */
 .info {
@@ -26,9 +105,53 @@ body {
   height: 100%;
 }
 
+.backbutton {
+  text-align: center;
+}
+
+.back_btn {
+  margin-top: 25px;
+  width: 200px;
+  height: 40px;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.back_btn:hover {
+  background-color: #2ee59d;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+}
+
 /* End Info section style */
 
 /* Game section style */
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 35px;
+  font-weight: 600;
+}
+
+.start_info {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
 .game_sec {
   display: flex;
   justify-content: center;
@@ -38,17 +161,17 @@ body {
 
 .game_area {
   display: grid;
-  grid-template-columns: repeat(4, 8rem);
-  grid-template-rows: repeat(4, 8rem);
-  grid-gap: 2rem;
+  grid-template-columns: repeat(4, 6.5rem);
+  grid-template-rows: repeat(4, 6.5rem);
+  grid-gap: 1.5rem;
   perspective: 800px;
 }
 /* In case of 6*6 level */
 .game_area_six {
   display: grid;
-  grid-template-columns: repeat(6, 4rem);
-  grid-template-rows: repeat(6, 4rem);
-  grid-gap: 2rem;
+  grid-template-columns: repeat(6, 4.5rem);
+  grid-template-rows: repeat(6, 4.5rem);
+  grid-gap: 1rem;
   perspective: 800px;
 }
 .card {
@@ -56,6 +179,7 @@ body {
   transform-style: preserve-3d;
   transition: all 2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 15px;
+  border-radius: 15px;
 }
 
 .face,
@@ -77,12 +201,50 @@ body {
 }
 
 .back {
-  background: white;
+  background: #2ee59d;
   backface-visibility: hidden;
+  border-radius: 15px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
 }
 
 .toggle_card {
   transform: rotateY(180deg);
+  background: #212a2e;
+  border-radius: 15px;
+  color: #fff;
+  font-size: 25px;
+}
+
+.result_info {
+  font-size: 35px;
+  font-weight: 600;
+}
+
+.reset_btn {
+  margin-top: 25px;
+  width: 400px;
+  height: 60px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+}
+
+.reset_btn:hover {
+  background-color: #2ee59d;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
 }
 
 /* End of Game section style */
@@ -91,4 +253,99 @@ body {
 /* Hiererchy issue  */
 .hide {
   display: none;
+}
+
+.theme-toggler {
+  position: absolute;
+  width: 45px;
+  height: 22px;
+  right: 20px;
+  top: 20px;
+  border: 2px solid;
+  border-radius: 20px;
+}
+.theme-toggler:before {
+  position: absolute;
+  content: "";
+  width: 20px;
+  height: 20px;
+  left: 0px;
+  top: 0px;
+  border-radius: 50%;
+  background: #000;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.theme-toggler.active:before {
+  left: 24px;
+  background: #fff;
+}
+
+/* Audio player */
+.player {
+  width: 400px;
+  background-color: var(--bg);
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  grid-gap: 16px;
+  padding: 8px 24px;
+  position: relative;
+  border-radius: 64px;
+  border: 1px solid #fafafa;
+  left: 6px;
+  position: absolute;
+  top: 6px;
+}
+
+.control,
+#current {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-block: 16px;
+}
+
+#playbtn {
+  font-size: 24px;
+  color: transparent;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
+  cursor: pointer;
+}
+
+#playbtn:hover {
+  -webkit-text-fill-color: white;
+}
+
+.info-player {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 21px;
+}
+
+#current {
+  text-align: right;
+}
+
+.bar {
+  --space: -4px;
+  background-color: #24242424;
+  overflow: hidden;
+  left: var(--space);
+  right: var(--space);
+  top: var(--space);
+  bottom: var(--space);
+  position: absolute;
+  border-radius: 64px;
+  z-index: -2;
+}
+
+#progress {
+  display: blcok;
+  width: var(--progress, 0%);
+  background-color: #2ee59d;
+  transition: all 1s linear;
+  height: 100%;
 }

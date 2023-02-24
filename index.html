@@ -1,71 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Memory game</title>
-    <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-<section class="info">
-    <div>
-        <h1>Welcome to Flip and Find!</h1>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./fontawesome/css/all.css" />
+  </head>
+  <body class="">
+    <label id="dark-change" class="theme-toggler"></label>
+    <section class="info">
+      <div>
+        <h2>Welcome to</h2>
+        <h1>Flip and Find!</h1>
         <input
-                type="text"
-                placeholder="Enter your user name"
-                name="userName"
-                id="username_id"
+          type="text"
+          placeholder="Enter your user name"
+          name="userName"
+          id="username_id"
         />
+        <br />
         <span class="error_field"></span>
-        <div>
-            <h2>Game level</h2>
-            <input type="radio"
-                   id="easy_level"
-                   name="game_level"
-                   value="Easy"/>
-            <label for="easy_level">Easy</label><br/>
-            <input
-                    type="radio"
-                    id="intermediate_level"
-                    name="game_level"
-                    value="Intermediate"
-            />
-            <label for="intermediate_level">Intermediate</label><br/>
-            <input
-                    type="radio"
-                    id="advance_level"
-                    name="game_level"
-                    value="Advance"
-            />
-            <label for="advance_level">Advance</label><br/>
+        <div class="game_levels">
+          <h2>GAME LEVEL</h2>
+          <input type="radio" id="easy_level" name="game_level" value="Easy" />
+          <label for="easy_level">Easy</label><br />
+          <input
+            type="radio"
+            id="intermediate_level"
+            name="game_level"
+            value="Intermediate"
+          />
+          <label for="intermediate_level">Intermediate</label><br />
+          <input
+            type="radio"
+            id="advance_level"
+            name="game_level"
+            value="Advance"
+          />
+          <label for="advance_level">Advance</label><br />
         </div>
-      <div class="error_field_level"></div>
-        <button id="btn_id">Enter</button>
-    </div>
-</section>
-<section class="game_sec hide">
-    <div>
+        <div class="error_field_level error_field"></div>
+        <button id="btn_id">START GAME</button>
+      </div>
+    </section>
+    <section class="game_sec hide">
+      <div>
         <div class="meta">
-            <p>Timer: <span id="minutes">0</span>:<span id="seconds">00</span></p>
-            <p>Moves : <span id="moves">0</span></p>
+          <p>Time: <span id="minutes">0</span>:<span id="seconds">00</span></p>
+          <p>Moves : <span id="moves">0</span></p>
         </div>
         <div class="game_area"></div>
-        <div class="start_info"><p>Game will begin when first card clicked!</p></div>
-        <button class="back_btn">Back</button>
-    </div>
-</section>
-<section class="result hide">
-    <div class="result_info">
+        <div class="start_info">
+          <p>Game will begin when the first card is clicked!</p>
+        </div>
+        <div class="backbutton">
+          <button class="back_btn">Back</button>
+        </div>
+      </div>
+    </section>
+    <section class="result hide">
+      <div class="result_info">
         <p>Player: <span id="player_name"></span></p>
         <p>Game level: <span id="game_level"></span></p>
-        <p>Time: <span id="end_time">
+        <p>
+          Time:
+          <span id="end_time">
             <span id="minutes_end">0</span>:<span id="seconds_end">00</span>
-        </span></p>
+          </span>
+        </p>
         <p>Moves: <span id="end_no_moves"></span></p>
         <button class="reset_btn">Reset</button>
+      </div>
+    </section>
+    <audio id="player" src="./audio.mp3"></audio>
+    <div class="player">
+      <div class="control">
+        <i class="fas fa-play" id="playbtn"></i>
+      </div>
+      <div class="info-player">
+        Lo Fi Hip Hop
+        <div class="bar">
+          <div id="progress"></div>
+        </div>
+      </div>
+
+      <div id="current">0:00</div>
     </div>
-</section>
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
