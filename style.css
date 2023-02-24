@@ -23,6 +23,7 @@ body.night {
   color: red;
 }
 /* End of global & common styling */
+/* Info section style */
 h1 {
   font-size: 64px;
   font-style: italic;
@@ -97,13 +98,23 @@ button:hover {
   transform: translateY(-7px);
 }
 
-/* Info section style */
+.instructions {
+  width: 500px;
+  margin-top: 25px;
+}
+
+.instructions > ul {
+  width: 400px;
+}
+
+
 .info {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
+/* End Info section style */
 
 .backbutton {
   text-align: center;
@@ -135,7 +146,7 @@ button:hover {
   transform: translateY(-7px);
 }
 
-/* End Info section style */
+
 
 /* Game section style */
 .meta {
@@ -343,7 +354,7 @@ button:hover {
 }
 
 #progress {
-  display: blcok;
+  display: block;
   width: var(--progress, 0%);
   background-color: #2ee59d;
   transition: all 1s linear;
